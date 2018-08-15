@@ -1,32 +1,35 @@
-const uuidv = require('uuid/v4')
+const uuidv = require("uuid/v4");
 
-const createUser = ({name: ""} = {}) =>(
-    {
-        id: uuidv(),
-        name
-    }
-)
+const createUser = ({ name = "" } = {}) => ({
+  id: uuidv(),
+  name
+});
 
+const getTime = date => {
+  return `${date.getHours()}:${("0" + date.getMinutes()).slice(-2)}`;
+};
 
-const createMessage = ({message="", sender=""} = {})=(
-    {
-        id: uuidv4(),
-        time:getTime(new Date(Date.now())),
-        message,
-        sender
-    }
-)
+const createMessage = ({ message = "", sender = "" } = {}) => ({
+  id: uuidv(),
+  time: getTime(new Date(Date.now())),
+  message,
+  sender
+});
 
-const createChat = ({messages=[], name="Community", users=[]} = {})=>(
-    {
-        id:uuidv4(),
-        name,
-        message,
-        users,
-        typingUsers:[]
-    }
-)
+const createChat = ({
+  messages = [],
+  name = "Community",
+  users = []
+} = {}) => ({
+  id: uuidv(),
+  name,
+  message,
+  users,
+  typingUsers: []
+});
 
-const getTime = (date)=>{
-    return `${date.getHours()}:${("0"+date.getMinutes()).slice(-2)}`
-}
+module.exports = {
+  createMessage,
+  createChat,
+  createUser
+};

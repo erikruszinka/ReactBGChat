@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { VERIFY_USER } from "../Events";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -8,6 +9,32 @@ class LoginForm extends Component {
       error: ""
     };
   }
+
+  setUser = ({ user, isUs }) => {
+    console.log(user, isUs);
+    if (isUs) {
+      this.setError("User name taken");
+    } else {
+      this.props.setUser(user);
+      this.setError("");
+    }
+  };
+
+  handleChange = e => {
+    this.setState({ nickname: e.target.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const { socket } = this.props;
+    const { nickname } = this.state;
+    socket.emit(VERIFY_USER, nickname, this.setUser);
+  };
+
+  setError = error => {
+    this.setState({ error });
+  };
+
   render() {
     const { nickname, error } = this.state;
     return (
@@ -24,8 +51,9 @@ class LoginForm extends Component {
             id="nickname"
             value={nickname}
             onChange={this.handleChange}
-            placeHolder={"Username"}
+            placeholder={"Username"}
           />
+          <div className="error">{error ? error : null}</div>
         </form>
       </div>
     );
