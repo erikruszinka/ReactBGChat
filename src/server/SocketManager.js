@@ -32,6 +32,6 @@ function removeUser(userList, username) {
   return newList;
 }
 
-function isUs(username, userList) {
+function isUs(userList, username) {
   return username in userList;
 }
