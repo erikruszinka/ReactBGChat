@@ -47,7 +47,7 @@ export default class SideBar extends Component {
             e.target === this.refs.user && setActiveChat(null);
           }}
         >
-          {chat => {
+          {chats.map(chat => {
             if (chat.name) {
               const lastMessage = chat.messages[chat.messages.length - 1];
               const chatSideName =
@@ -79,7 +79,7 @@ export default class SideBar extends Component {
             }
 
             return null;
-          }}
+          })}
         </div>
         <div className="current-user">
           <span>{user.name}</span>
