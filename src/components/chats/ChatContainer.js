@@ -7,9 +7,9 @@ import {
   TYPING,
   PRIVATE_MESSAGE
 } from "../../Events";
-// import ChatHeading from './ChatHeading'
-// import Messages from '../messages/Messages'
-// import MessageInput from '../messages/MessageInput'
+import ChatHeading from "./ChatHeading";
+import Messages from "../messages/Messages";
+import MessageInput from "../messages/MessageInput";
 
 export default class ChatContainer extends Component {
   constructor(props) {
@@ -132,24 +132,20 @@ export default class ChatContainer extends Component {
         <div className="chat-room-container">
           {activeChat !== null ? (
             <div className="chat-room">
-              {/* <ChatHeading name={activeChat.name} />
-								<Messages
-									messages={activeChat.messages}
-									user={user}
-									typingUsers={activeChat.typingUsers}
-									/>
-								<MessageInput
-									sendMessage={
-										(message)=>{
-											this.sendMessage(activeChat.id, message)
-										}
-									}
-									sendTyping={
-										(isTyping)=>{
-											this.sendTyping(activeChat.id, isTyping)
-										}
-									}
-									/> */}
+              <ChatHeading name={activeChat.name} />
+              <Messages
+                messages={activeChat.messages}
+                user={user}
+                typingUsers={activeChat.typingUsers}
+              />
+              <MessageInput
+                sendMessage={message => {
+                  this.sendMessage(activeChat.id, message);
+                }}
+                sendTyping={isTyping => {
+                  this.sendTyping(activeChat.id, isTyping);
+                }}
+              />
             </div>
           ) : (
             <div className="chat-room choose">

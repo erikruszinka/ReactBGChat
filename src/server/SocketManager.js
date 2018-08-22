@@ -1,5 +1,10 @@
 const io = require("./index.js").io;
-const { VERIFY_USER, USER_CONNECTED, LOGOUT } = require("../Events");
+const {
+  VERIFY_USER,
+  USER_CONNECTED,
+  USER_DISCONNECTED,
+  LOGOUT
+} = require("../Events");
 const { createUser, createMessage, createChat } = require("../Factories");
 let connectedUsers = {};
 
@@ -18,6 +23,14 @@ module.exports = function(socket) {
     socket.user = user;
     io.emit(USER_CONNECTED, connectedUsers);
     console.log(connectedUsers);
+  });
+
+  socket.io("disconnect", () => {
+    if ("user" in socket) {
+      connectedUsers = removeUser(connectedUsers, socket.user.name);
+      io.emit(USER_CONNECTED, connectedUsers);
+      console.log(connectedUsers);
+    }
   });
 };
 
